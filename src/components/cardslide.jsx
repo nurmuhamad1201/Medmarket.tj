@@ -75,16 +75,16 @@ export default function CardSlide() {
       <IconButton
         ref={prevRef}
         sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '-68px',
-          transform: 'translateY(-50%)',
+           position: 'absolute',
+    top: '50%',
+    left: { xs: '-15px', md: '-60px' },
+    transform: 'translateY(-50%)',
           backgroundColor: '#8168F0',
           color: '#fff',
           '&:hover': { backgroundColor: '#61D2B9' },
           boxShadow: 3,
-          width: '45px',
-          height: '45px',
+          width: { xs: '20px', md: '45px' },
+          height: { xs: '20px', md: '45px' },
           zIndex: 10,
         }}
       >
@@ -97,35 +97,51 @@ export default function CardSlide() {
         sx={{
           position: 'absolute',
           top: '50%',
-          right: '-68px',
+          right: { xs: '-15px', md: '-60px' },
           transform: 'translateY(-50%)',
           backgroundColor: '#8168F0',
           color: '#fff',
           '&:hover': { backgroundColor: '#61D2B9' },
           boxShadow: 3,
-         width: '45px',
-          height: '45px',
+          width: { xs: '20px', md: '45px' },
+          height: { xs: '20px', md: '45px' },
           zIndex: 10,
         }}
       >
         <ArrowForwardIosRoundedIcon />
       </IconButton>
 
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        }}
-        onInit={(swiper) => {
-          swiper.params.navigation.prevEl = prevRef.current;
-          swiper.params.navigation.nextEl = nextRef.current;
-          swiper.navigation.init();
-          swiper.navigation.update();
-        }}
-        modules={[Pagination, Navigation]}
-      >
+ <Swiper
+  slidesPerView={1}
+  spaceBetween={20}
+  breakpoints={{
+    640: {
+      slidesPerView: 1.2,
+      spaceBetween: 20,
+    },
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 25,
+    },
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 30,
+    },
+  }}
+  navigation={{
+    prevEl: prevRef.current,
+    nextEl: nextRef.current,
+  }}
+  onInit={(swiper) => {
+    swiper.params.navigation.prevEl = prevRef.current;
+    swiper.params.navigation.nextEl = nextRef.current;
+    swiper.navigation.init();
+    swiper.navigation.update();
+  }}
+  modules={[Pagination, Navigation]}
+  style={{ padding: '0 15px' }}
+>
+
         {items.map((item) => (
          <SwiperSlide key={item.id}>
   <Box sx={{ position: 'relative' }}>
@@ -172,7 +188,7 @@ export default function CardSlide() {
       }
     </Box>
 
-    
+   
     <IconButton
       onClick={() => toggleLike(item.id)}
       sx={{

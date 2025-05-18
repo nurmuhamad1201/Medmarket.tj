@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Contact = () => {
   const [name, setName] = useState('');
@@ -12,117 +13,128 @@ const Contact = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 py-12 px-4 md:px-8">
-         <div className="w-full max-w-5xl ml-35 mb-6 text-left text-gray-600 text-base font-medium" style={{ fontFamily: 'Mulish' }}>
-        <Link to={`/`}><span className="text-gray-500">Главная</span></Link>
-        <span className="mx-2">/</span>
-        <span className="text-purple-600 font-semibold">Контакты</span>
-      </div>
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-        
-        <div className="bg-white p-8 shadow-md rounded-lg">
-          <h1 className="text-3xl font-bold text-[#8168F0] mb-6">Форма обратной связи</h1>
-          <form onSubmit={handleSubmit} className="space-y-5">
-  <div>
-    <input
-      type="text"
-      id="name"
-      value={name}
-      onChange={(e) => setName(e.target.value)}
-      required
-      placeholder="ФИО"
-      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none"
-    />
-  </div>
+    <>
+      {/* SEO Meta Tags */}
+      <Helmet>
+        <title>Контакты – Medmarket.tj</title>
+        <meta
+          name="description"
+          content="Свяжитесь с нами через форму обратной связи или по телефону и электронной почте Medmarket.tj."
+        />
+        <meta property="og:title" content="Контакты – Medmarket.tj" />
+        <meta
+          property="og:description"
+          content="Свяжитесь с нами через форму обратной связи или по телефону и электронной почте Medmarket.tj."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
 
-  <div>
-    <input
-      type="tel"
-      id="phone"
-      value={phone}
-      onChange={(e) => setPhone(e.target.value)}
-      required
-      placeholder="Телефон"
-      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none"
-    />
-  </div>
+      <section className="min-h-screen bg-gray-50 py-12 px-4 md:px-8" aria-labelledby="contact-heading">
+        {/* Breadcrumbs */}
+        <nav
+          className="w-full max-w-5xl ml-35 mb-6 text-left text-gray-600 text-base font-medium"
+          style={{ fontFamily: 'Mulish' }}
+          aria-label="Breadcrumb"
+        >
+          <Link to={`/`} className="text-gray-500">Главная</Link>
+          <span className="mx-2">/</span>
+          <span className="text-purple-600 font-semibold" aria-current="page">Контакты</span>
+        </nav>
 
-  <div>
-    <textarea
-      id="message"
-      value={message}
-      onChange={(e) => setMessage(e.target.value)}
-      required
-      rows={4}
-      placeholder="Ваше сообщение"
-      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none resize-none"
-    />
-  </div>
+        <h1 id="contact-heading" className="text-4xl font-bold text-[#8168F0] max-w-5xl mx-auto mb-10 font-mulish">
+          Контакты
+        </h1>
 
-  <button
-    type="submit"
-    className="bg-[#8168F0] hover:bg-[#806fc9] text-white font-semibold py-2 px-6 rounded-md transition cursor-pointer duration-200"
-  >
-    Отправить заявку
-  </button>
-</form>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+          {/* Contact Form */}
+          <article className="bg-white p-8 shadow-md rounded-lg" aria-labelledby="form-heading">
+            <h2 id="form-heading" className="text-3xl font-bold text-[#8168F0] mb-6 font-mulish">
+              Форма обратной связи
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+              <div>
+                <label htmlFor="name" className="block mb-1 font-semibold text-gray-700 font-mulish">
+                  ФИО
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  placeholder="Введите ваше ФИО"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                />
+              </div>
 
+              <div>
+                <label htmlFor="phone" className="block mb-1 font-semibold text-gray-700 font-mulish">
+                  Телефон
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                  placeholder="Телефон"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block mb-1 font-semibold text-gray-700 font-mulish">
+                  Ваше сообщение
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  required
+                  rows={4}
+                  placeholder="Напишите ваше сообщение"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="bg-[#8168F0] hover:bg-[#806fc9] text-white font-semibold py-2 px-6 rounded-md transition cursor-pointer duration-200"
+              >
+                Отправить заявку
+              </button>
+            </form>
+          </article>
+
+           
+          <aside className="bg-[#F4F4F4] p-8 shadow-md rounded-lg" aria-label="Контактная информация">
+            <address className="not-italic space-y-6 font-mulish text-gray-800">
+              <div>
+                <p className="text-[25px] font-bold leading-none">Режим работы</p>
+                <p className="text-[20px] font-medium">Ежедневно с 9:00 до 20:00</p>
+              </div>
+
+              <div>
+                <p className="text-[25px] font-bold leading-none">Телефон</p>
+                <a href="tel:+992900223344" className="text-[20px] font-medium text-purple-700 hover:underline">
+                  (+992) 900-22-33-44
+                </a>
+              </div>
+
+              <div>
+                <p className="text-[25px] font-bold leading-none">E-mail</p>
+                <a href="mailto:help@medmarket.tj" className="text-[20px] font-medium text-purple-700 hover:underline break-words">
+                  help@medmarket.tj
+                </a>
+              </div>
+            </address>
+          </aside>
         </div>
-
-        {/* Contact Info */}
-        <div className="bg-[#F4F4F4] p-8 shadow-md rounded-lg">
-  
-
-  <div className="space-y-4">
-    <div>
-      <p
-        className="text-[25px]  text-gray-800"
-        style={{ fontFamily: 'Mulish', fontWeight: 700, lineHeight: '100%' }}
-      >
-        Режим работы
-      </p>
-      <p
-        className="text-[20px] py-1 text-gray-700"
-        style={{ fontFamily: 'Mulish', fontWeight: 500, lineHeight: '100%' }}
-      >
-        Ежедневно с 9:00 до 20:00
-      </p>
-    </div>
-
-    <div>
-      <p
-        className="text-[25px] text-gray-800"
-        style={{ fontFamily: 'Mulish', fontWeight: 700, lineHeight: '100%' }}
-      >
-        Телефон
-      </p>
-      <p
-        className="text-[20px] py-1 text-gray-700"
-        style={{ fontFamily: 'Mulish', fontWeight: 500, lineHeight: '100%' }}
-      >
-        (+992) 900-22-33-44
-      </p>
-    </div>
-
-    <div>
-      <p
-        className="text-[25px] text-gray-800"
-        style={{ fontFamily: 'Mulish', fontWeight: 700, lineHeight: '100%' }}
-      >
-        E-mail
-      </p>
-      <p
-        className="text-[20px] text-gray-700 py-1 break-words"
-        style={{ fontFamily: 'Mulish', fontWeight: 500, lineHeight: '100%' }}
-      >
-        help@medmarket.tj
-      </p>
-    </div>
-  </div>
-</div>
-
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
