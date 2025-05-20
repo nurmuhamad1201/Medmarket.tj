@@ -9,48 +9,41 @@ import ServerError from './pages/server-error/ServerError';
 import Contact from './pages/contact/Contact';
 import About from './pages/about/About';
 import Vacancy from './pages/vacancy/Vacancy';
+import MyOrders from './pages/profile/MyOrders';
+import MyFavorites from './pages/profile/MyFavorites';
+import MyReviews from './pages/profile/MyReviews';
+import MyRecipes from './pages/profile/MyRecipes';
+import MyReturns from './pages/profile/MyReturns';
+import ProfileLayout from './layout/ProfileLayout';
  
 export default function App() {
   const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "/profile",
-          element: <Profile />,
-        },
-        {
-          path: "/contact",
-          element: <Contact />,
-        },
-        {
-          path: "/about",
-          element: <About />,
-        },
-        {
-          path: "/vacancy",
-          element: <Vacancy />,
-        },
-        {
-          path: "/forbidden", // 403 page route
-          element: <Forbidden />,
-        },
-        {
-          path: "/server-error", // 500 page route
-          element: <ServerError />,
-        },
-        {
-          path: "*",  
-          element: <NotFound />,
-        },
-      ],
-    },
-  ]);
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      {
+        path: "profile",
+        element: <ProfileLayout />,
+        children: [
+          { index: true, element: <Profile /> }, // main profile page
+          { path: "orders", element: <MyOrders /> },
+          { path: "favorites", element: <MyFavorites /> },
+          { path: "reviews", element: <MyReviews /> },
+          { path: "recipes", element: <MyRecipes /> },
+          { path: "returns", element: <MyReturns /> },
+        ]
+      },
+      { path: "contact", element: <Contact /> },
+      { path: "about", element: <About /> },
+      { path: "vacancy", element: <Vacancy /> },
+      { path: "forbidden", element: <Forbidden /> },
+      { path: "server-error", element: <ServerError /> },
+      { path: "*", element: <NotFound /> },
+    ],
+  },
+]);
 
   return <RouterProvider router={router} />;
 }

@@ -1,10 +1,23 @@
+import React from 'react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import {
+  Box,
+  Typography,
+  Button,
+  IconButton,
+} from '@mui/material';
+import ProfileForm from '@/components/ProfileForm';
+ 
+
 export default function Profile() {
+  const location = useLocation();
+ 
+
   return (
-    <main role="main" className="p-6">
-      <h1 className="text-2xl font-bold">Профиль</h1>
-      <section>
-        <p>Здесь будет отображаться информация о вашем аккаунте.</p>
-      </section>
+    <main role="main">
+      
+       <ProfileForm />
+     
     </main>
   );
 }

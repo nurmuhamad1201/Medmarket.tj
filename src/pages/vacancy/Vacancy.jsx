@@ -78,6 +78,41 @@ export default function Vacancy() {
               </div>
             </details>
           </article>
+          <article className="bg-[#FAFAFA] p-6 rounded-2xl mb-4 w-full mx-auto">
+            <details className="group">
+              <summary className="cursor-pointer flex justify-between items-center">
+                <div className="flex flex-col items-start">
+                  <time dateTime="2025-01-14" className="text-sm text-[#0B1F3580] font-normal">
+                    14.01.2025
+                  </time>
+                  <h2 className="text-xl font-bold py-2 text-black">Кассир</h2>
+                  <p className="text-base font-normal text-[#0B1F3580]">
+                    А ещё акционеры крупнейших компаний могут быть обнародованы! 
+                  </p>
+                </div>
+
+                <KeyboardArrowRightIcon
+                  className="transform transition-transform duration-300 group-open:rotate-90 text-[#8168F0]"
+                  fontSize="large"
+                />
+              </summary>
+
+              <div className="mt-5">
+                <p
+                  style={{
+                    fontFamily: 'Mulish',
+                    fontWeight: 400,
+                    fontSize: '18px',
+                    lineHeight: '26px',
+                    letterSpacing: '0%',
+                    color: '#0B1F3580',
+                  }}
+                >
+                   Противоположная точка зрения подразумевает, что независимые государства призывают нас к новым свершениям, которые, в свою очередь, должны быть ассоциативно распределены по отраслям. Сложно сказать, почему предприниматели в сети интернет освещают чрезвычайно интересные особенности картины в целом, однако конкретные выводы, разумеется, призваны к ответу. И нет сомнений, что интерактивные прототипы лишь добавляют фракционных разногласий и объективно рассмотрены соответствующими инстанциями.
+                </p>
+              </div>
+            </details>
+          </article>
         </section>
       </main>
     </>
