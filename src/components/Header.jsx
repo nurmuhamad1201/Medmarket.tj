@@ -7,7 +7,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import LocationOnSharpIcon from '@mui/icons-material/LocationOnSharp';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-
+import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
 import { ShoppingCart } from 'lucide-react';
 import LoginDialog from './Login';
 import CitySelector from './Cityselector';
@@ -20,7 +20,11 @@ const categories = [
 export default function Header() {
   return (
     <header className="bg-white shadow-md">
-      <img src={imageTop} alt="Medical health banner" className="w-full" />
+     <img
+  src={imageTop}
+  alt="Medical health banner"
+  className="w-full animated-tilt"
+/>
 
       <section className="w-[86%] m-auto" aria-label="Main header navigation">
         <div className="flex items-center mt-0">
@@ -91,10 +95,13 @@ export default function Header() {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
          
             <LoginDialog />
-            <IconButton sx={{ flexDirection: 'column', color: 'black' }} aria-label="Избранное">
-              <FavoriteBorderOutlinedIcon fontSize="large" />
-              <span className="text-sm mt-1">Избранное</span>
+            
+            <Link to={`/profile/massages`}>
+            <IconButton sx={{ flexDirection: 'column', color: 'black' }} aria-label="Уведомления">
+              <NotificationsNoneRoundedIcon fontSize="large" />
+              <span className="text-sm mt-1">Уведомления</span>
             </IconButton>
+            </Link>
 
             <IconButton sx={{ flexDirection: 'column', color: 'black' }} aria-label="Корзина">
               <ShoppingCart size={30} />

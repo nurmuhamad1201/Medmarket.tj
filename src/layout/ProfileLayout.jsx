@@ -21,7 +21,8 @@ const breadcrumbMap = {
   favorites: 'Мои избранные',
   reviews: 'Мои отзывы',
   recipes: 'Мои рецепты',
-  returns: 'Мои возвраты'
+  returns: 'Мои возвраты',
+  massages: 'Мои сообщения',
 };
 
 export default function ProfileLayout() {
@@ -40,7 +41,7 @@ export default function ProfileLayout() {
 
   return (
     <main className="w-[90%] max-w-7xl mx-auto px-4 py-8">
-      {/* Breadcrumb */}
+       
       <nav className="text-sm mb-6 text-gray-600 font-medium" aria-label="Breadcrumb">
         <Link to="/" className="text-gray-500 hover:text-gray-700">Главная</Link>
         <span className="mx-2">/</span>
@@ -54,8 +55,8 @@ export default function ProfileLayout() {
       </nav>
 
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Sidebar */}
-        <aside className="bg-[#F6F7FA] rounded-lg shadow p-5 w-[350px]">
+        
+        <aside className="bg-[#F6F7FA] rounded-lg shadow p-5 md:w-[310px] h-auto w-full">
           <Link to={`/profile`}>
           <header className="flex bg-[#FFFFFF] p-3 items-center justify-between mb-6">
             <div className="flex items-center">

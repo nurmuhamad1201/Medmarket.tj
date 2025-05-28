@@ -73,7 +73,7 @@ export default function Footer() {
                 { label: 'Как получить заказ' , to: '/to-get' },
                 { label: 'Доставка' , to: '/delivery' },
                 { label: 'Оплата' , to: '/payment' },
-                { label: 'Стать партнером' , to: '/partner' },
+                { label: 'Стать партнером' , to: '/become-partner' },
               ].map((item, index) => (
                 <li key={index}>
                   <Link

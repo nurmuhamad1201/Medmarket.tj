@@ -15,6 +15,8 @@ import MyReviews from './pages/profile/MyReviews';
 import MyRecipes from './pages/profile/MyRecipes';
 import MyReturns from './pages/profile/MyReturns';
 import ProfileLayout from './layout/ProfileLayout';
+import Massages from './pages/profile/Massages';
+import BecomePartner from './pages/becomePartner/BecomePartner';
  
 export default function App() {
   const router = createBrowserRouter([
@@ -27,19 +29,21 @@ export default function App() {
         path: "profile",
         element: <ProfileLayout />,
         children: [
-          { index: true, element: <Profile /> }, // main profile page
+          { index: true, element: <Profile /> },  
           { path: "orders", element: <MyOrders /> },
           { path: "favorites", element: <MyFavorites /> },
           { path: "reviews", element: <MyReviews /> },
           { path: "recipes", element: <MyRecipes /> },
           { path: "returns", element: <MyReturns /> },
+          {path: "massages", element: <Massages />}, 
         ]
       },
-      { path: "contact", element: <Contact /> },
-      { path: "about", element: <About /> },
-      { path: "vacancy", element: <Vacancy /> },
-      { path: "forbidden", element: <Forbidden /> },
-      { path: "server-error", element: <ServerError /> },
+      { path: "/contact", element: <Contact /> },
+      { path: "/about", element: <About /> },
+      { path: "/vacancy", element: <Vacancy /> },
+      { path: "/become-partner" , element: <BecomePartner />},
+      { path: "/forbidden", element: <Forbidden /> },
+      { path: "/server-error", element: <ServerError /> },
       { path: "*", element: <NotFound /> },
     ],
   },
