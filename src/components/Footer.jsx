@@ -39,31 +39,29 @@ export default function Footer() {
 
         {/* Links Section */}
         <div className="grid grid-cols-2 gap-6">
-          {/* Company Info */}
-          <div>
-             
-            <ul className="space-y-1">
-              {[
-                { label: 'О компании', to: '/about' },
-                { label: 'Контакты', to: '/contact' },
-                { label: 'Вакансии', to: '/vacancy' },
-                { label: 'Вакансии', to: '#' },
-                { label: 'Обмен и возврат', to: '#' },
-                { label: 'Акции в аптеках', to: '#' },
-              ].map((item, index) => (
-                <li key={index}>
-                  <Link
-                    to={item.to}
-                    className="text-white text-[17px] font-[400] leading-[35px] hover:text-[#8168F0] transition"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Help Section */}
+       {/* Company Info */}
+    <div>
+      <ul className="space-y-1">
+     {[
+      { label: 'О компании', to: '/about' },
+      { label: 'Контакты', to: '/contact' },
+      { label: 'Вакансии', to: '/vacancy' },
+     { label: 'Соглашение', to: '/terms' },
+      { label: 'Обмен и возврат', to: '#' },
+      { label: 'Акции в аптеках', to: '#' },
+    ].map((item, index) => (
+      <li key={index}>
+        <Link
+          to={item.to}
+          className="text-white text-[17px] font-[400] leading-[35px] hover:text-[#8168F0] transition"
+        >
+          {item.label}
+        </Link>
+      </li>
+    ))}
+  </ul>
+    </div>
+          
           <div>
             <ul className="space-y-1">
               {[

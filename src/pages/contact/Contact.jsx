@@ -29,8 +29,8 @@ const Contact = () => {
         <meta property="og:type" content="website" />
       </Helmet>
 
-      <section className="min-h-screen bg-gray-50 py-12 px-4 md:px-8" aria-labelledby="contact-heading">
-        {/* Breadcrumbs */}
+      <section className="min-h-screen bg-white py-12 px-4 md:px-8" aria-labelledby="contact-heading">
+        
         <nav
           className="w-full max-w-5xl ml-35 mb-6 text-left text-gray-600 text-base font-medium"
           style={{ fontFamily: 'Mulish' }}
@@ -41,13 +41,10 @@ const Contact = () => {
           <span className="text-purple-600 font-semibold" aria-current="page">Контакты</span>
         </nav>
 
-        <h1 id="contact-heading" className="text-4xl font-bold text-[#8168F0] max-w-5xl mx-auto mb-10 font-mulish">
-          Контакты
-        </h1>
-
+         
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-          {/* Contact Form */}
-          <article className="bg-white p-8 shadow-md rounded-lg" aria-labelledby="form-heading">
+          
+          <article className=" p-8   rounded-lg" aria-labelledby="form-heading">
             <h2 id="form-heading" className="text-3xl font-bold text-[#8168F0] mb-6 font-mulish">
               Форма обратной связи
             </h2>

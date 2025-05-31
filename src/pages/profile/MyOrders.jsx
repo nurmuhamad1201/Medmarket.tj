@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import zakaz from '@/assets/svg/zakaz.svg';
 import spray from '@/assets/svg/spray.svg';
 import EmptyState from '@/components/EmptyState';
+import { CheckCircle } from 'lucide-react';
 
 export default function MyOrders() {
   const [activeTab, setActiveTab] = useState('all');
-
- const allOrders = [
+  const [cancelOrderId, setCancelOrderId] = useState(null);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [showReasonSelect, setShowReasonSelect] = useState(false);
+  const [showCancelSuccess, setShowCancelSuccess] = useState(false);
+  const [selectedReason, setSelectedReason] = useState('');
+  const [orders, setOrders] = useState([
     {
       id: 628,
       imagedrug: spray,
@@ -71,18 +76,61 @@ export default function MyOrders() {
       text: 'Мирамистин, 0.01%, раствор для местного применения, с насадкой-распылителем, 150 мл, 1 шт.',
       oldprice: "800 сомони",
       newprice: "670 сомони"
-    },];
+    },
+  ]);
+
+  const cancellationReasons = [
+    'Долго ждать одобрения заказа',
+    'Не устраивает срок доставки',
+    'Ошибка в выборе товара',
+    'Нашел подешевле',
+    'Необходимость в товаре отпала'
+  ];
 
   const filteredOrders =
     activeTab === 'all'
-      ? allOrders
-      : allOrders.filter((order) => order.status === 'Доставлено');
+      ? orders
+      : orders.filter((order) => order.status === 'Доставлено');
 
   const statusColor = {
     'Отклонен': '#FF0000',
     'Доставлено': '#61D2B9',
     'На модерации': '#FFCB2B',
     'В пути': '#407BFF',
+  };
+
+  const handleCancelClick = (orderId) => {
+    setCancelOrderId(orderId);
+    setShowCancelConfirm(true);
+  };
+
+  const handleConfirmCancel = () => {
+    setShowCancelConfirm(false);
+    setShowReasonSelect(true);
+  };
+
+  const handleSubmitCancellation = async () => {
+    try {
+      // Here you would typically call your backend API to cancel the order
+      // await cancelOrderApi(cancelOrderId, selectedReason);
+      
+      // For demo purposes, we'll just update the local state
+      setOrders(orders.map(order => 
+        order.id === cancelOrderId ? { ...order, status: 'Отменен' } : order
+      ));
+      
+      setShowReasonSelect(false);
+      setShowCancelSuccess(true);
+      setSelectedReason('');
+    } catch (error) {
+      console.error('Error cancelling order:', error);
+      // Handle error (show error message, etc.)
+    }
+  };
+
+  const handleBackToHome = () => {
+    setShowCancelSuccess(false);
+    // You might want to redirect to home or refresh orders here
   };
 
   return (
@@ -167,8 +215,11 @@ export default function MyOrders() {
                   <button className="text-xs text-white bg-[#152242] rounded-xl px-4 py-1">
                     Оценить
                   </button>
-                ) : order.status !== 'Доставлено' ? (
-                  <button className="text-xs text-[#FF0000] cursor-pointer">
+                ) : ['На модерации', 'В пути'].includes(order.status) ? (
+                  <button 
+                    onClick={() => handleCancelClick(order.id)}
+                    className="text-xs text-[#FF0000] cursor-pointer"
+                  >
                     Отменить заказ &gt;
                   </button>
                 ) : null}
@@ -177,6 +228,238 @@ export default function MyOrders() {
           ))}
         </div>
       )}
+
+      
+ <Dialog
+  open={showCancelConfirm}
+  onClose={() => setShowCancelConfirm(false)}
+  maxWidth="xs"
+  PaperProps={{
+    sx: {
+      borderRadius: "30px",
+      width: "100%",
+      maxWidth: "480px",
+    }
+  }}
+>
+  <DialogTitle sx={{
+    textAlign: "center",
+    fontSize: "28px",
+    fontWeight: 700,
+    pt: "40px",
+    px: "50px",
+    fontFamily: "Mulish"
+  }}>
+    Отмена заказа
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText sx={{
+      textAlign: "center",
+      fontSize: "22px",
+      fontWeight: 500,
+      px: "24px",
+      fontFamily: "Mulish",
+      color: "#000"
+    }}>
+      Вы уверены, что хотите отменить заказ?
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions sx={{
+    display: "flex",
+    justifyContent: "space-between",
+    px: "24px",
+    pb: "24px",
+    pt: 0
+  }}>
+    <Button
+      onClick={() => setShowCancelConfirm(false)}
+      variant="outlined"
+      sx={{
+        color: "#8168F0",
+        borderColor: "#8168F0",
+        borderRadius: "8px",
+        height: "48px",
+        width: "45%",
+        fontSize: "16px",
+        fontWeight: 600,
+        textTransform: "none",
+        '&:hover': {
+          borderColor: "#6a54d8",
+        }
+      }}
+    >
+      Назад
+    </Button>
+    <Button
+      onClick={handleConfirmCancel}
+      variant="contained"
+      sx={{
+        backgroundColor: "#8168F0",
+        color: "white",
+        borderRadius: "8px",
+        height: "48px",
+        width: "45%",
+        fontSize: "16px",
+        fontWeight: 600,
+        textTransform: "none",
+        '&:hover': {
+          backgroundColor: "#6a54d8",
+        },
+        '&:disabled': {
+          backgroundColor: "#E0E0E0",
+        }
+      }}
+    >
+      Отменить заказ
+    </Button>
+  </DialogActions>
+</Dialog>
+
+ 
+<Dialog
+  open={showReasonSelect}
+  onClose={() => setShowReasonSelect(false)}
+  maxWidth="sm"
+  PaperProps={{
+    sx: {
+      borderRadius: "30px",
+      width: "100%",
+      maxWidth: "480px",
+    }
+  }}
+>
+  <DialogTitle sx={{
+    textAlign: "start",
+    fontSize: "20px",
+    fontWeight: 700,
+    pt: "40px",
+    px: "50px",
+    fontFamily: "Mulish"
+  }}>
+    Выберите причину отмены заказа
+  </DialogTitle>
+  <DialogContent sx={{ px: "24px" }}>
+    <RadioGroup
+      value={selectedReason}
+      onChange={(e) => setSelectedReason(e.target.value)}
+      sx={{ mt: 2 }}
+    >
+      {cancellationReasons.map((reason) => (
+        <FormControlLabel
+          key={reason}
+          value={reason}
+          control={<Radio sx={{
+            color: "#8168F0",
+            '&.Mui-checked': {
+              color: "#8168F0",
+            }
+          }} />}
+          label={reason}
+          sx={{
+            mb: 2,
+            '& .MuiTypography-root': {
+              fontSize: "16px",
+              fontFamily: "Mulish",
+              fontWeight: 700,
+
+            }
+          }}
+        />
+      ))}
+    </RadioGroup>
+  </DialogContent>
+  <DialogActions sx={{
+    justifyContent: "center",
+    px: "24px",
+    pb: "24px",
+    pt: 0
+  }}>
+    <Button
+      onClick={handleSubmitCancellation}
+      variant="contained"
+      disabled={!selectedReason}
+      sx={{
+        backgroundColor: "#8168F0",
+        color: "white",
+        borderRadius: "8px",
+        height: "48px",
+        width: "100%",
+        fontSize: "16px",
+        fontWeight: 600,
+        textTransform: "none",
+        '&:hover': {
+          backgroundColor: "#6a54d8",
+        },
+        '&:disabled': {
+          backgroundColor: "#E0E0E0",
+        }
+      }}
+    >
+      Отправить
+    </Button>
+  </DialogActions>
+</Dialog>
+
+ 
+<Dialog
+  open={showCancelSuccess}
+  onClose={() => setShowCancelSuccess(false)}
+  maxWidth="sm"
+  PaperProps={{
+    sx: {
+      borderRadius: "30px",
+      width: "100%",
+      maxWidth: "480px",
+    }
+  }}
+>
+  <DialogContent sx={{
+    textAlign: "center",
+    py: "40px",
+    px: "24px"
+  }}>
+    
+    <DialogTitle sx={{
+      textAlign: "center",
+      fontSize: "28px",
+      fontWeight: 700,
+      fontFamily: "Mulish",
+      color: "#000",
+      p: 0,
+      mb: "8px"
+    }}>
+      Заказ отменен
+    </DialogTitle>
+    <DialogContentText sx={{
+      fontSize: "18px",
+      fontFamily: "Mulish",
+      color: "#000",
+      mb: "24px",
+      py:"20px"
+    }}>
+      Ваш заказ был успешно отменен.
+    </DialogContentText>
+    <Button
+      onClick={handleBackToHome}
+      variant="contained"
+      sx={{
+        backgroundColor: "#8168F0",
+        color: "white",
+        borderRadius: "8px",
+        height: "48px",
+        width: "100%",
+        fontSize: "16px",
+        fontWeight: 600,
+        textTransform: "none",
+        '&:hover': {
+          backgroundColor: "#6a54d8",
+        }
+      }}
+    >
+      На главную
+    </Button>
+  </DialogContent>
+</Dialog>
     </main>
   );
 }

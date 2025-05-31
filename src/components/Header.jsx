@@ -1,131 +1,167 @@
 import imageTop from '@/assets/images/imagetop.png';
 import aksiya from '@/assets/svg/aksiya.svg';
-
 import { Link } from 'react-router-dom';
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import LocationOnSharpIcon from '@mui/icons-material/LocationOnSharp';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
 import { ShoppingCart } from 'lucide-react';
 import LoginDialog from './Login';
 import CitySelector from './Cityselector';
+import SearchModal from './SearchModal';
+import { useRef, useState } from 'react';
+import logo from '@/assets/svg/logomed.svg';
+import Catalog from './Catalog';
+import CatalogMenu from './Catalog';
  
+import CloseIcon from "@mui/icons-material/Close";
 
 const categories = [
   'Акции', 'Скидки', 'Насморк', 'Температура', 'Лечебная косметика', 'Аптечка', 'Грипп', 'Витамины'
 ];
 
 export default function Header() {
+  const [isSearchOpen, setSearchOpen] = useState(false);
+  const searchRef = useRef(null);
+const [openCatalog, setOpenCatalog] = useState(false);
+const [open, setOpen] = useState(false);
+  const searchForm = (
+    <form
+      role="search"
+      className="flex items-center bg-[#f4f4f9] rounded-lg w-full max-w-[900px] min-h-[40px]"
+      aria-label="Поиск товаров"
+      onClick={() => setSearchOpen(true)}
+    >
+      <TextField
+        inputRef={searchRef}
+        label="Искать Витамин Д, Дермотин, Простуда..."
+        variant="outlined"
+        sx={{
+          width: '100%',
+          '& .MuiInputBase-root': {
+            height: '50px',
+            fontSize: '14px',
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#8168F0' },
+            '&:hover fieldset': { borderColor: '#8168F0' },
+            '&.Mui-focused fieldset': { borderColor: '#8168F0' },
+          },
+          backgroundColor: '#ffffff',
+          borderRadius: '10px 0 0 10px',
+        }}
+      />
+      <IconButton
+        type="submit"
+        sx={{
+          width: '75px',
+          height: '50px',
+          borderRadius: '0 10px 10px 0',
+          backgroundColor: '#8168F0',
+          color: 'white',
+          '&:hover': { backgroundColor: '#6a54d8' },
+        }}
+        aria-label="Начать поиск"
+      >
+        <SearchOutlinedIcon fontSize="small" />
+      </IconButton>
+    </form>
+  );
+
+ 
+
+   
+
   return (
-    <header className="bg-white shadow-md">
-     <img
-  src={imageTop}
-  alt="Medical health banner"
-  className="w-full animated-tilt"
-/>
+   <>
+    <header className="bg-white shadow-md" style={{ position: 'relative', zIndex: 1200 }}>
+      <img
+        src={imageTop}
+        alt="Medical health banner"
+        className="w-full animated-tilt"
+      />
 
       <section className="w-[86%] m-auto" aria-label="Main header navigation">
-        <div className="flex items-center mt-0">
-         <CitySelector />
+        <div className="flex items-center mt-0 mb-2">
+          <CitySelector />
         </div>
 
-        <nav className="flex items-center justify-between w-full gap-5 px-4 rounded-lg flex-wrap" role="navigation" aria-label="Primary navigation">
-          <Link to="/">
-            <h1 className="font-semibold text-2xl sm:text-4xl text-[#7EC1FF]">MEDMARKET</h1>
+        <nav className="flex flex-wrap items-center justify-between gap-5 px-2 rounded-lg" role="navigation" aria-label="Primary navigation">
+          <Link to="/" className="shrink-0">
+            <img src={logo} className='h-[50px]' alt="Company logo" />
           </Link>
 
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#8168F0",
-              color: "white",
-              borderRadius: "8px",
-              fontWeight: "600",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-              "&:hover": {
-                backgroundColor: "#6a54d8",
-                boxShadow: "0 6px 8px rgba(0, 0, 0, 0.2)",
-              },
-            }}
-            aria-label="Открыть каталог"
-          >
-            <MenuSharpIcon fontSize="large" />
-            <span className="hidden sm:inline">Каталог</span>
-          </Button>
+     <Button
+      variant="contained"
+      onClick={() => setOpenCatalog((prev) => !prev)}
+      sx={{
+        backgroundColor: openCatalog ? "#FFFFFF" : "#8168F0",
+        color: openCatalog ? "#8168F0" : "white",
+        border: "2px solid var(--Color-main, #8168F0)",
+        borderRadius: "6px",
+        fontWeight: 600,
+        fontSize: "14px",
+        height: "50px",
+        display: "flex",
+        alignItems: "center",
+        gap: 1,
+        "&:hover": {
+          backgroundColor: openCatalog ? "#f3f3f3" : "#6a54d8",
+        },
+      }}
+      aria-label="Открыть каталог"
+    >
+      {openCatalog ? <CloseIcon fontSize="small" /> : <MenuSharpIcon fontSize="small" />}
+      <span className="hidden sm:inline">{openCatalog ? "Закрыть" : "Каталог"}</span>
+    </Button>
+      <CatalogMenu open={openCatalog} />
 
-          {/* Search Bar */}
-          <form role="search" className="flex flex-grow items-center bg-[#f4f4f9] rounded-lg p-1" aria-label="Поиск товаров">
-            <TextField
-              label="Искать Витамин Д, Дермотин, Простуда..."
-               
-              variant="outlined"
-              sx={{
-                width: '100%',
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': { borderColor: '#8168F0' },
-                  '&:hover fieldset': { borderColor: '#8168F0' },
-                  '&.Mui-focused fieldset': { borderColor: '#8168F0' },
-                },
-                backgroundColor: '#ffffff',
-                borderRadius: '10px 0 0 10px',
-              }}
+          <div className="flex-grow">
+            <SearchModal
+              anchorEl={searchRef.current}
+              open={isSearchOpen}
+              onClose={() => setSearchOpen(false)}
+              searchForm={searchForm}
             />
-            <IconButton
-              type="submit"
-              sx={{
-                width: '60px',
-                height: '55px',
-                borderRadius: '0 10px 10px 0',
-                backgroundColor: '#8168F0',
-                color: 'white',
-                '&:hover': { backgroundColor: '#6a54d8' },
-              }}
-              aria-label="Начать поиск"
-            >
-              <SearchOutlinedIcon />
-            </IconButton>
-          </form>
+          </div>
 
-          {/* User Icons */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-         
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <LoginDialog />
-            
-            <Link to={`/profile/massages`}>
-            <IconButton sx={{ flexDirection: 'column', color: 'black' }} aria-label="Уведомления">
-              <NotificationsNoneRoundedIcon fontSize="large" />
-              <span className="text-sm mt-1">Уведомления</span>
-            </IconButton>
+
+            <Link to="/profile/massages" className="flex flex-col items-center">
+              <IconButton sx={{ flexDirection: 'column', color: 'black' }} aria-label="Уведомления">
+                <NotificationsNoneRoundedIcon fontSize="large" />
+                <span className="text-sm mt-1">Уведомления</span>
+              </IconButton>
             </Link>
 
-            <IconButton sx={{ flexDirection: 'column', color: 'black' }} aria-label="Корзина">
-              <ShoppingCart size={30} />
-              <span className="text-sm mt-1">Корзина</span>
-            </IconButton>
+            <Link to="/cart" className="flex flex-col items-center">
+              <IconButton sx={{ flexDirection: 'column', color: 'black' }} aria-label="Корзина">
+                <ShoppingCart fontSize="large" />
+                <span className="text-sm mt-1">Корзина</span>
+              </IconButton>
+            </Link>
           </Box>
         </nav>
 
-       
-        <nav aria-label="Навигация по акциям и категориям">
-          <ul className="flex flex-wrap items-center justify-between gap-2 bg-white px-4 py-4 rounded-lg">
+        <nav aria-label="Навигация по категориям" className="mt-2">
+          <ul className="flex flex-wrap items-center justify-between gap-2 bg-white px-2 py-3 rounded-lg">
             {categories.map((label, idx) => (
               <li key={idx}>
-                <Link to="/" className="flex items-center gap-1 bg-[#F6F7FA] rounded-2xl px-3 py-1 text-[14px] sm:text-[17px] font-semibold text-black">
-                  <img src={aksiya} alt={`Иконка для ${label}`} />
+                <Link 
+                  to="/" 
+                  className="flex items-center gap-1 bg-[#F6F7FA] hover:bg-[#E8E9F5] rounded-2xl px-3 py-1 text-[12px] sm:text-[14px] font-semibold text-black transition-colors duration-200"
+                >
+                    <img src={aksiya} alt="" className="w-4 h-4" />
                   {label}
                 </Link>
               </li>
             ))}
           </ul>
-          
-
         </nav>
       </section>
     </header>
+   
+   </>
   );
 }

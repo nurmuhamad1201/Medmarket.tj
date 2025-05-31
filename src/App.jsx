@@ -17,6 +17,7 @@ import MyReturns from './pages/profile/MyReturns';
 import ProfileLayout from './layout/ProfileLayout';
 import Massages from './pages/profile/Massages';
 import BecomePartner from './pages/becomePartner/BecomePartner';
+import Terms from './pages/terms/Terms';
  
 export default function App() {
   const router = createBrowserRouter([
@@ -42,6 +43,7 @@ export default function App() {
       { path: "/about", element: <About /> },
       { path: "/vacancy", element: <Vacancy /> },
       { path: "/become-partner" , element: <BecomePartner />},
+      { path: "/terms", element: <Terms /> },
       { path: "/forbidden", element: <Forbidden /> },
       { path: "/server-error", element: <ServerError /> },
       { path: "*", element: <NotFound /> },
