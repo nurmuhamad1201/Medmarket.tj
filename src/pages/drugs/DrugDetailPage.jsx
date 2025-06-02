@@ -129,10 +129,20 @@ export function ProductDetail() {
   <p className="text-[#8168F0] font-medium text-[13px] m-0">{product.actives}</p>
 </span>
            <span className="flex items-center gap-1 font-normal text-[15px] leading-[21px] align-middle">
-  Производитель:
-  <p className="text-[#8168F0] font-medium text-[13px] m-0">{product.manufacturer}</p>
+  Категории:
+  <p className="text-[#8168F0] font-medium text-[13px] m-0">{product.category}</p>
+</span>
+           <span className="flex items-center gap-1 font-normal text-[15px] leading-[21px] align-middle">
+  Срок годности:
+  <p className="text-[#000000] font-medium text-[16px] m-0">{product.expirationDate}</p>
 </span>
           </div>
+
+
+
+        
+
+
           
           <div className="mt-6">
             <h2 className="text-lg font-semibold text-gray-800 mb-2">Доставка и оплата</h2>
