@@ -74,7 +74,7 @@ const [open, setOpen] = useState(false);
 
   return (
    <>
-    <header className="bg-white shadow-md" style={{ position: 'relative', zIndex: 1200 }}>
+    <header className="bg-white " style={{ position: 'relative', zIndex: 1200 }}>
       <img
         src={imageTop}
         alt="Medical health banner"
@@ -114,7 +114,7 @@ const [open, setOpen] = useState(false);
       {openCatalog ? <CloseIcon fontSize="small" /> : <MenuSharpIcon fontSize="small" />}
       <span className="hidden sm:inline">{openCatalog ? "Закрыть" : "Каталог"}</span>
     </Button>
-      <CatalogMenu open={openCatalog} />
+      
 
           <div className="flex-grow">
             <SearchModal
@@ -160,6 +160,7 @@ const [open, setOpen] = useState(false);
           </ul>
         </nav>
       </section>
+      <CatalogMenu open={openCatalog} />
     </header>
    
    </>
