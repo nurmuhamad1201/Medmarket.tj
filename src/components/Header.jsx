@@ -1,6 +1,6 @@
 import imageTop from '@/assets/images/imagetop.png';
 import aksiya from '@/assets/svg/aksiya.svg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
@@ -9,9 +9,8 @@ import { ShoppingCart } from 'lucide-react';
 import LoginDialog from './Login';
 import CitySelector from './Cityselector';
 import SearchModal from './SearchModal';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import logo from '@/assets/svg/logomed.svg';
-import Catalog from './Catalog';
 import CatalogMenu from './Catalog';
  
 import CloseIcon from "@mui/icons-material/Close";
@@ -24,7 +23,12 @@ export default function Header() {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef(null);
 const [openCatalog, setOpenCatalog] = useState(false);
-const [open, setOpen] = useState(false);
+ const location = useLocation();
+
+useEffect(() => {
+    setOpenCatalog(false);
+  }, [location]);
+
   const searchForm = (
     <form
       role="search"
@@ -90,30 +94,29 @@ const [open, setOpen] = useState(false);
           <Link to="/" className="shrink-0">
             <img src={logo} className='h-[50px]' alt="Company logo" />
           </Link>
-
-     <Button
-      variant="contained"
-      onClick={() => setOpenCatalog((prev) => !prev)}
-      sx={{
-        backgroundColor: openCatalog ? "#FFFFFF" : "#8168F0",
-        color: openCatalog ? "#8168F0" : "white",
-        border: "2px solid var(--Color-main, #8168F0)",
-        borderRadius: "6px",
-        fontWeight: 600,
-        fontSize: "14px",
-        height: "50px",
-        display: "flex",
-        alignItems: "center",
-        gap: 1,
-        "&:hover": {
-          backgroundColor: openCatalog ? "#f3f3f3" : "#6a54d8",
-        },
-      }}
-      aria-label="Открыть каталог"
-    >
-      {openCatalog ? <CloseIcon fontSize="small" /> : <MenuSharpIcon fontSize="small" />}
-      <span className="hidden sm:inline">{openCatalog ? "Закрыть" : "Каталог"}</span>
-    </Button>
+<Button
+        variant="contained"
+        onClick={() => setOpenCatalog((prev) => !prev)}
+        sx={{
+          backgroundColor: openCatalog ? "#FFFFFF" : "#8168F0",
+          color: openCatalog ? "#8168F0" : "white",
+          border: "2px solid var(--Color-main, #8168F0)",
+          borderRadius: "6px",
+          fontWeight: 600,
+          fontSize: "14px",
+          height: "50px",
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+          "&:hover": {
+            backgroundColor: openCatalog ? "#f3f3f3" : "#6a54d8",
+          },
+        }}
+        aria-label="Открыть каталог"
+      >
+        {openCatalog ? <CloseIcon fontSize="small" /> : <MenuSharpIcon fontSize="small" />}
+        <span className="hidden sm:inline">{openCatalog ? "Закрыть" : "Каталог"}</span>
+      </Button>
       
 
           <div className="flex-grow">
